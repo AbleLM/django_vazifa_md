@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Bog‘lanish — ContactHub{% endblock %}
+
+{% block content %}
+<section class="hero-grid">
+    <div class="intro">
+        <span class="eyebrow">Bog‘lanish</span>
+        <h1>Bizga xabar yuboring</h1>
+        <p>Quyidagi formani to‘ldiring. Xabaringiz ma’lumotlar bazasiga saqlanadi va xabarlar sahifasida ko‘rinadi.</p>
+        <a class="text-link" href="{% url 'contacts:message_list' %}">Barcha xabarlarni ko‘rish →</a>
+    </div>
+
+    <div class="card">
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="alert error">{{ form.non_field_errors }}</div>
+            {% endif %}
+
+            <div class="form-grid">
+                <div class="field">
+                    <label for="{{ form.first_name.id_for_label }}">Ism</label>
+                    {{ form.first_name }}
+                    {% for error in form.first_name.errors %}<small class="error-text">{{ error }}</small>{% endfor %}
+                </div>
+
+                <div class="field">
+                    <label for="{{ form.last_name.id_for_label }}">Familiya</label>
+                    {{ form.last_name }}
+                    {% for error in form.last_name.errors %}<small class="error-text">{{ error }}</small>{% endfor %}
+                </div>
+
+                <div class="field">
+                    <label for="{{ form.phone.id_for_label }}">Telefon raqam</label>
+                    {{ form.phone }}
+                    {% for error in form.phone.errors %}<small class="error-text">{{ error }}</small>{% endfor %}
+                </div>
+
+                <div class="field">
+                    <label for="{{ form.email.id_for_label }}">Email manzil</label>
+                    {{ form.email }}
+                    {% for error in form.email.errors %}<small class="error-text">{{ error }}</small>{% endfor %}
+                </div>
+
+                <div class="field full">
+                    <label for="{{ form.message.id_for_label }}">Yuborilgan xabar</label>
+                    {{ form.message }}
+                    {% for error in form.message.errors %}<small class="error-text">{{ error }}</small>{% endfor %}
+                </div>
+            </div>
+
+            <button class="primary-btn" type="submit">Jo‘natish</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

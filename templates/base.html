@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Contact Form{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <a class="brand" href="{% url 'contacts:contact_form' %}">ContactHub</a>
+            <nav>
+                <a href="{% url 'contacts:contact_form' %}">Forma</a>
+                <a href="{% url 'contacts:message_list' %}">Xabarlar</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container page-content">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert success">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

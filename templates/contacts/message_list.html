@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Xabarlar — ContactHub{% endblock %}
+
+{% block content %}
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">Ma’lumotlar bazasi</span>
+        <h1>Xabarlar</h1>
+        <p>Barcha foydalanuvchilardan kelgan xabarlar.</p>
+    </div>
+    <a class="secondary-btn" href="{% url 'contacts:contact_form' %}">+ Yangi xabar</a>
+</div>
+
+<div class="table-card">
+    {% if contact_messages %}
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Ism</th>
+                        <th>Familiya</th>
+                        <th>Telefon raqam</th>
+                        <th>Email</th>
+                        <th>Yuborilgan xabar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in contact_messages %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ item.first_name }}</td>
+                            <td>{{ item.last_name }}</td>
+                            <td><a href="tel:{{ item.phone }}">{{ item.phone }}</a></td>
+                            <td><a href="mailto:{{ item.email }}">{{ item.email }}</a></td>
+                            <td class="message-cell">{{ item.message|linebreaksbr }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h2>Hozircha xabar yo‘q</h2>
+            <p>Birinchi xabarni yuborish uchun formaga qayting.</p>
+            <a class="primary-btn inline-btn" href="{% url 'contacts:contact_form' %}">Forma ochish</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
